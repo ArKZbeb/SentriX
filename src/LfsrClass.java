@@ -25,6 +25,7 @@ public class LfsrClass {
                 resultat.append(nouveauBit);
             }
             System.out.println("Resultat : " + resultat);
+            // Convertit le résultat binaire en décimal
             BinaireVersDecimal(resultat);
         }
         scanneur.close();
