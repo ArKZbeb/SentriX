@@ -2,7 +2,6 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class LfsrClass {
-
     public static void main(String[] args) {
         Scanner scanneur = new Scanner(System.in);
         System.out.println("Entrer une graine ou ecrire 'quitter' pour quitter:");
@@ -30,13 +29,7 @@ public class LfsrClass {
         }
         scanneur.close();
     }
-
-    private static void BinaireVersDecimal(StringBuilder resultat) {
-        // Convertit le résultat binaire en décimal
-        int decimal = Integer.parseInt(resultat.toString(), 2);
-        System.out.println("Resultat en decimal : " + decimal);
-    }
-
+    // Méthode pour initialiser le LFSR avec une graine donnée
     public static StringBuilder LFSR(String graine) {
         // Conversion de la graine en ascii
         byte[] valeurBinaire = graine.getBytes();
@@ -47,7 +40,7 @@ public class LfsrClass {
         System.out.println("Valeur binaire convertie: " + binaireStr);
         return binaireStr;
     }
-
+    // Méthode pour simuler une étape du LFSR
     public static int etape(StringBuilder octet, int positionA, int positionB) {
         // Obtenir les bits aux positions spécifiées
         char bitA = octet.charAt(positionA);
@@ -61,7 +54,7 @@ public class LfsrClass {
         // Retourne le nouveau bit sous forme d'entier (0 ou 1)
         return nouveauBit == '0' ? 0 : 1;
     }
-
+    // Méthode pour convertir un tableau d'octets en binaire
     public static StringBuilder RecupereValeurBinaire(byte[] octet) {
         // Convertit chaque octet en binaire
         StringBuilder binaire = new StringBuilder();
@@ -74,6 +67,10 @@ public class LfsrClass {
         }
         return binaire;
     }
-
-
+    // Méthode pour convertir le résultat binaire en décimal
+    private static void BinaireVersDecimal(StringBuilder resultat) {
+        // Convertit le résultat binaire en décimal
+        int decimal = Integer.parseInt(resultat.toString(), 2);
+        System.out.println("Resultat en decimal : " + decimal);
+    }
 }
