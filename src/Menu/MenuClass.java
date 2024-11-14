@@ -10,6 +10,7 @@ import java.util.Scanner;
 import static Common.CommonClass.*;
 import static Hash.HachageClass.Hachage256;
 import static Hash.HachageClass.HachageMD5;
+import static lfsr.LfsrClass.*;
 
 public class MenuClass {
     // Définition des codes de couleurs pour le texte dans la console (rouge et blanc par défaut)
@@ -50,7 +51,7 @@ public class MenuClass {
                         MenuChoixHachage(scanneur);
                 case "3" ->
                     // Appel de la fonction pour générer un nombre aléatoire
-                        NombrePseudoAleatoires();
+                        MenuLFSR(scanneur);
                 case "4" -> System.out.println("Description des outils - à venir.");
 
                 // TODO méthode à implementer
@@ -214,8 +215,32 @@ public class MenuClass {
     }
 
 
-    // Méthode pour générer et afficher un nombre pseudo-aléatoire (fonctionnalité à ajouter)
-    public static void NombrePseudoAleatoires() {
-        System.out.println("Nombre pseudo-aléatoire - fonction à venir.");
+    public static void MenuLFSR(Scanner scanneur) {
+        // Boucle jusqu'à ce que l'utilisateur décide de quitter
+        while (true) {
+            System.out.println("---------------------");
+            System.out.println("Entrer une graine ou ecrire 'quitter' pour revenir en arrière:");
+            String entree = scanneur.next();
+
+            // Reviens au menu antérieur si l'utilisateur tape "quitter"
+            if (entree.equalsIgnoreCase("quitter")) {
+                System.out.println("Sortie...");
+                break;
+            }
+            // Initialiser le LFSR avec la graine entrée
+            StringBuilder valeurBinaireStr = LFSR(entree);
+
+            // Nombre d'étapes à simuler
+            int etapes = 10;
+            StringBuilder resultat = new StringBuilder();
+            for (int i = 0; i < etapes; i++) {
+                int nouveauBit = Etape(valeurBinaireStr, 0, 6); // XOR bits aux positions 0 et 6
+                resultat.append(nouveauBit);
+            }
+            System.out.println("---------------------");
+            System.out.println("Resultat : " + resultat);
+            // Convertit le résultat binaire en décimal
+            BinaireVersDecimal(resultat);
+        }
     }
 }

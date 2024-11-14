@@ -32,6 +32,13 @@ public class CommonClass {
         return entree;
     }
 
+    // Méthode pour convertir le résultat binaire en décimal
+    public static void BinaireVersDecimal(StringBuilder resultat) {
+        // Convertit le résultat binaire en décimal
+        int decimal = Integer.parseInt(resultat.toString(), 2);
+        System.out.println("Resultat en decimal : " + decimal);
+    }
+
     public static void ArretApplication() {
         // Affiche un message indiquant la fermeture de l'application
         System.out.println("Fermeture de l'application...");
