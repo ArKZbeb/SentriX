@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ROTClass {
+public class ROTDechiffrerClass {
 
     public static String rotation(String texte, int decalage) {
         StringBuilder resultat = new StringBuilder();
@@ -11,14 +11,14 @@ public class ROTClass {
         // Permet de parcours chaque caractère du texte
         for (char caractere : texte.toCharArray()) {
 
-            // Permet de voir si le caractère est une lettre, applique le chiffrement ROT(X)
+            // Permet de voir si le caractère est une lettre, applique le déchiffrement ROT(X)
             if (caractere >= 'a' && caractere <= 'z') {
-                caractere = (char) ((caractere - 'a' + decalage) % 26 + 'a');
+                caractere = (char) ((caractere - 'a' - decalage) % 26 + 'a');
 
             }
             // Vérifie si le caractère est une lettre majuscule
             else if (caractere >= 'A' && caractere <= 'Z') {
-                caractere = (char) ((caractere - 'A' + decalage) % 26 + 'A');
+                caractere = (char) ((caractere - 'A' - decalage) % 26 + 'A');
             }
 
             resultat.append(caractere);
@@ -31,7 +31,7 @@ public class ROTClass {
         String message;
         int decalage = 0;
 
-        // Permet de demander à l'utilisateur de saisir le texte à chiffrer
+        // Permet de demander à l'utilisateur de saisir le texte à déchiffrer
         System.out.print("Entrez le texte à chiffrer (minuscule uniquement) : ");
         message = lecteur.nextLine();
 
@@ -58,12 +58,13 @@ public class ROTClass {
             }
         }
 
-        // Permet d'appliquer la méthode de chiffrement
-        String messageChiffre = rotation(message, decalage);
+        // Permet d'appliquer la méthode de déchiffrement
+        String messageDeChiffre = rotation(message, decalage);
 
-        // Permet d'afficher le message chiffré
-        System.out.println("Message chiffré : " + messageChiffre);
+        // Permet d'afficher le message déchiffré
+        System.out.println("Message déchiffré : " + messageDeChiffre);
 
+        // Permet de couper le flux des ressources
         lecteur.close();
     }
 }
