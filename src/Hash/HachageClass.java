@@ -25,18 +25,33 @@ public class HachageClass {
         System.out.println(TransformationEnHexadecimal(motHashe));
     }
 
+    public static void HachageMD5(Scanner scanneur) throws NoSuchAlgorithmException {
+        // Demande à l'utilisateur de saisir le texte à hacher
+        System.out.println("Donnez votre mot à hacher");
+
+        // Récupère la saisie de l'utilisateur
+        String texte = scanneur.next();
+
+        // Initialise un objet MessageDigest pour utiliser l'algorithme MD5Q
+        MessageDigest digest = MessageDigest.getInstance("MD5");
+
+        // Convertit le texte en un tableau de bytes (octets) en utilisant l'encodage UTF-8,
+        // puis effectue le hachage avec MD5
+        byte[] motHashe = digest.digest(texte.getBytes());
+
+        // Affiche le tableau de bytes représentant le hachage MD5 du texte
+        System.out.println(TransformationEnHexadecimal(motHashe));
+    }
+
     // Méthode pour convertir un tableau de bytes en chaîne hexadécimale
-    private static StringBuilder TransformationEnHexadecimal(byte[] motHashe) {
+    private static StringBuilder TransformationEnHexadecimal(byte[] motsHashe) {
         // Initialisation d'un StringBuilder pour stocker le mot en format hexadécimal
         StringBuilder motEnHexa = new StringBuilder();
 
         // Parcourt chaque byte dans le tableau motHashe
-        for (byte b : motHashe) {
-            // Convertit chaque byte en une chaîne hexadécimale à deux chiffres
-            // et l'ajoute à motEnHexa
-            motEnHexa.append(String.format("%02x", b));
+        for (int i = 0; i< motsHashe.length; i++) {
+            motEnHexa.append(String.format("%02x", motsHashe[i]));
         }
-
         // Retourne le mot converti en hexadécimal
         return motEnHexa;
     }
