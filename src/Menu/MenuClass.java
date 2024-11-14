@@ -2,8 +2,14 @@ package Menu;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
+import static Chiffrement.CarreDePolybeClass.GlobaleCarreDePolybeManageur;
+import static Chiffrement.EnigmaClass.enigmaChiffrer;
+import static Chiffrement.EnigmaClass.enigmaDechiffrer;
+import static Chiffrement.ROTClass.*;
 import static Common.CommonClass.*;
 import static Hash.HachageClass.Hachage256;
+import static Hash.HachageClass.HachageMD5;
+import static lfsr.LfsrClass.*;
 
 public class MenuClass {
     // Définition des codes de couleurs pour le texte dans la console (rouge et blanc par défaut)
@@ -44,7 +50,7 @@ public class MenuClass {
                         MenuChoixHachage(scanneur);
                 case "3" ->
                     // Appel de la fonction pour générer un nombre aléatoire
-                        NombrePseudoAleatoires();
+                        LFSR(scanneur);
                 case "4" -> System.out.println("Description des outils - à venir.");
 
                 // TODO méthode à implementer
@@ -63,7 +69,7 @@ public class MenuClass {
     }
 
     // Méthode pour afficher et gérer les options de chiffrement
-    public static void MenuChoixChiffrement(Scanner scanner) {
+    public static void MenuChoixChiffrement(Scanner scanneur) {
         boolean retourMenuDemarage = false;
 
         while (!retourMenuDemarage) {
@@ -78,13 +84,12 @@ public class MenuClass {
             System.out.print("Veuillez faire un choix entre 1 et 5 : ");
 
             // Lire et vérifier l'entrée de l'utilisateur
-            String entree = VerificationEntree(scanner, 1, 5);
+            String entree = VerificationEntree(scanneur, 1, 5);
             switch (entree) {
                 case "1" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option ROT(X) sélectionnée");
+                    MenuROT(scanneur);
                 }
-                // TODO méthode à implementer
                 case "2" -> {
                     System.out.println("---------------------");
                     System.out.println("Option Vigenère sélectionnée");
@@ -92,9 +97,8 @@ public class MenuClass {
                 // TODO méthode à implementer
                 case "3" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option Carré de Polybe sélectionnée");
+                    MenuCarreDePolybe(scanneur);
                 }
-                // TODO méthode à implementer
                 case "4" ->
                     // Retour au menu principal
                         retourMenuDemarage = true;
@@ -117,19 +121,19 @@ public class MenuClass {
             System.out.println("1. Enigma");
             System.out.println("2. RC4");
             System.out.println("3. SHA-256");
-            System.out.println("4. Retour en arrière");
-            System.out.println("5. Quitter");
+            System.out.println("4. MD5");
+            System.out.println("5. Retour en arrière");
+            System.out.println("6. Quitter");
             System.out.println("---------------------");
-            System.out.print("Veuillez faire un choix entre 1 et 5 : ");
+            System.out.print("Veuillez faire un choix entre 1 et 6 : ");
 
             // Lire et vérifier l'entrée de l'utilisateur
-            String entree = VerificationEntree(scanneur, 1, 5);
+            String entree = VerificationEntree(scanneur, 1, 6);
             switch (entree) {
                 case "1" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option Enigma sélectionnée");
+                    MenuEnigma(scanneur);
                 }
-                // TODO méthode à implementer
                 case "2" -> {
                     System.out.println("---------------------");
                     System.out.println("Option RC4 sélectionnée");
@@ -139,11 +143,14 @@ public class MenuClass {
                     System.out.println("---------------------");
                     Hachage256(scanneur);
                 }
-                // TODO méthode à implementer
-                case "4" ->
+                case "4" -> {
+                    System.out.println("---------------------");
+                    HachageMD5(scanneur);
+                }
+                case "5" ->
                     // Retour au menu principal
                         retourMenuDemarage = true;
-                case "5", "quitter" ->
+                case "6", "quitter" ->
                     // Quitter l'application
                         ArretApplication();
                 default -> {
@@ -152,8 +159,80 @@ public class MenuClass {
         }
     }
 
-    // Méthode pour générer et afficher un nombre pseudo-aléatoire (fonctionnalité à ajouter)
-    public static void NombrePseudoAleatoires() {
-        System.out.println("Nombre pseudo-aléatoire - fonction à venir.");
+    public static void MenuEnigma(Scanner scanneur) {
+
+        boolean continuer = true;
+
+        while (continuer){
+            String choix = Selection(scanneur);
+
+            switch (choix) {
+                case "1" -> enigmaChiffrer(scanneur);
+                case "2" -> enigmaDechiffrer(scanneur);
+                case "3" -> {
+                    System.out.println("---------------------");
+                    System.out.println("Retour au menu principal.");
+                    continuer = false;
+                }
+                default -> {
+                    System.out.println("---------------------");
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                }
+            }
+        }
+    }
+
+    public static void MenuCarreDePolybe(Scanner scanneur) {
+
+        boolean continuer = true;
+
+        while (continuer){
+            String choix = Selection(scanneur);
+
+            switch (choix) {
+                case "1", "2" -> GlobaleCarreDePolybeManageur(choix, scanneur);
+                case "3" -> {
+                    System.out.println("---------------------");
+                    System.out.println("Retour au menu principal.");
+                    continuer = false;
+                }
+                default -> {
+                    System.out.println("---------------------");
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                }
+            }
+        }
+    }
+
+
+    public static void MenuROT(Scanner scanneur) {
+
+        boolean continuer = true;
+
+        while (continuer){
+            String choix = Selection(scanneur);
+
+            switch (choix) {
+                case "1", "2" -> GlobaleROTManageur(choix);
+                case "3" -> {System.out.println("Retour au menu principal.");
+                    continuer = false;
+                }
+                default -> {
+                    System.out.println("---------------------");
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                }
+            }
+        }
+    }
+
+
+    private static String Selection(Scanner scanneur) {
+        System.out.println("1. Chiffrer un message");
+        System.out.println("2. Déchiffrer un message");
+        System.out.println("3. Retour");
+        System.out.println("---------------------");
+        System.out.print("Veuillez faire un choix entre 1 et 3 : ");
+
+        return scanneur.next();
     }
 }

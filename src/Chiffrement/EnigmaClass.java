@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Enigma {
+public class EnigmaClass {
     // Liste pour stocker les configurations des rotors
     private List<int[]> rotors;
     // Tableau représentant le réflecteur
@@ -20,7 +20,7 @@ public class Enigma {
     private static final int LIMITE_CARACTERES_CLE = 100;
 
     // Constructeur de la classe Enigma
-    public Enigma(String key, int[] initialPositions) {
+    public EnigmaClass(String key, int[] initialPositions) {
         // Si la clé est "HistorII", on charge la configuration historique des rotors
         if ("HistorII".equals(key)) {
             initialiserRotorsHistoriques();
@@ -31,9 +31,9 @@ public class Enigma {
             initialiserRotorsPersonnalises();
             System.out.println("Configuration personnalisée chargée.");
         } 
-        // En cas de clé invalide, on lève une exception
+        // En cas de clé invalide, on met un message et on reviens à l'itération d'avant
         else {
-            throw new IllegalArgumentException("Erreur : Clé invalide.");
+            System.out.println("Erreur : Clé invalide.");
         }
         // On définit les positions initiales des rotors et on les réinitialise
         setInitialRotorPositions(initialPositions);
@@ -43,21 +43,21 @@ public class Enigma {
     // Méthode statique pour chiffrer un message avec l'interface console
     public static void enigmaChiffrer(Scanner scanner) {
         System.out.print("Votre clé : ");
-        String configKey = scanner.nextLine();
+        String configKey = scanner.next();
         
         // Configuration des positions initiales des rotors
         int[] initialPositions = configurerRotors(scanner);
-        Enigma enigma;
+        EnigmaClass enigma;
 
         // Si la clé est "HistorII", on charge la configuration historique
         if (configKey.equals("HistorII")) {
-            enigma = new Enigma("HistorII", initialPositions);
+            enigma = new EnigmaClass("HistorII", initialPositions);
             System.out.print("Entrez une clé de chiffrement (mot clair pour aligner les rotors) : ");
             configKey = scanner.nextLine();
         } 
         // Sinon, on utilise la clé personnalisée fournie
         else {
-            enigma = new Enigma(configKey, initialPositions);
+            enigma = new EnigmaClass(configKey, initialPositions);
         }
 
         // Saisie du message à chiffrer et affichage du résultat chiffré
@@ -68,27 +68,27 @@ public class Enigma {
 
     // Méthode statique pour déchiffrer un message avec l'interface console
     public static void enigmaDechiffrer(Scanner scanner) {
-        System.out.print("Appuyez sur Entrée pour une configuration personnalisée ou entrez HistorII pour la configuration historique : ");
-        String configKey = scanner.nextLine();
+        System.out.print("Appuyez sur Entrée pour une configuration personnalisée : ");
+        String configKey = scanner.next();
         
         // Configuration des positions initiales des rotors
         int[] initialPositions = configurerRotors(scanner);
-        Enigma enigma;
+        EnigmaClass enigma;
 
         // Si la clé est "HistorII", on charge la configuration historique
         if (configKey.equals("HistorII")) {
-            enigma = new Enigma("HistorII", initialPositions);
+            enigma = new EnigmaClass("HistorII", initialPositions);
             System.out.print("Entrez une clé de déchiffrement (identique à celle utilisée pour chiffrer) : ");
-            configKey = scanner.nextLine();
+            configKey = scanner.next();
         } 
         // Sinon, on utilise la clé personnalisée fournie
         else {
-            enigma = new Enigma(configKey, initialPositions);
+            enigma = new EnigmaClass(configKey, initialPositions);
         }
 
         // Saisie du message à déchiffrer et affichage du résultat déchiffré
         System.out.print("Entrez le message à déchiffrer avec Enigma : ");
-        String message = scanner.nextLine();
+        String message = scanner.next();
         System.out.println("Message déchiffré avec Enigma : " + enigma.dechiffrer(message));
     }
 
@@ -136,7 +136,7 @@ public class Enigma {
     // Définit les positions initiales des rotors
     public void setInitialRotorPositions(int[] positions) {
         if (positions.length != 3) {
-            throw new IllegalArgumentException("Erreur : Les positions initiales doivent inclure 3 valeurs pour les 3 rotors.");
+            System.out.println("Erreur : Les positions initiales doivent inclure 3 valeurs pour les 3 rotors.");
         }
         this.initialRotorPositions = positions.clone();
     }
@@ -147,18 +147,18 @@ public class Enigma {
     }
 
     // Méthode de chiffrement
-    public String chiffrer(String texte) {
+    private String chiffrer(String texte) {
         if (!validerMessage(texte)) {
-            throw new IllegalArgumentException("Erreur : Message invalide.");
+            System.out.println("Erreur : Message invalide.");
         }
         resetRotorPositions();
         return traiterTexte(texte);
     }
 
     // Méthode de déchiffrement
-    public String dechiffrer(String texte) {
+    private String dechiffrer(String texte) {
         if (!validerMessage(texte)) {
-            throw new IllegalArgumentException("Erreur : Message invalide.");
+            System.out.println("Erreur : Message invalide.");
         }
         resetRotorPositions();
         return traiterTexte(texte);

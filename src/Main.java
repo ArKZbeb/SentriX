@@ -1,8 +1,7 @@
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
-import Chiffrement.CarreDePolybe;
-import Chiffrement.Enigma;
-import Chiffrement.VigenereCipher;
+
+import static Menu.MenuClass.MenuDemarage;
 
 public class Main {
     public static void main(String[] args) throws NoSuchAlgorithmException {

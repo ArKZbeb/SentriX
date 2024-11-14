@@ -1,6 +1,6 @@
 package Chiffrement;
 
-public class VigenereCipher {
+public class VigenereCipherClass {
     // Limites de caractères pour le message et la clé
     private static final int LIMITE_CARACTERES_MESSAGE = 1000;
     private static final int LIMITE_CARACTERES_CLE = 100;
