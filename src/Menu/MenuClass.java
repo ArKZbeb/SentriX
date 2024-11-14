@@ -9,7 +9,7 @@ public class MenuClass {
     public static String COULEUR_PAR_DEFAUT = "\u001B[0m";
 
     // Méthode pour afficher et gérer le menu principal de démarrage
-    public static void MenuDemarage(Scanner scanner) {
+    public static void MenuDemarage(Scanner scanneur) {
         // Variable pour contrôler la boucle d'exécution de l'application
         boolean stopApplication = false;
 
@@ -30,36 +30,30 @@ public class MenuClass {
             System.out.print("Veuillez faire un choix entre 1 et 5 : ");
 
             // Lire le choix de l'utilisateur
-            String choix = scanner.next();
+            String choix = scanneur.next();
 
             // Gestion des différentes options de menu en fonction du choix de l'utilisateur
             switch (choix) {
-                case "1":
+                case "1" ->
                     // Menu pour les différents chiffrements possibles
-                    MenuChoixChiffrement(scanner);
-                    break;
-                case "2":
+                        MenuChoixChiffrement(scanneur);
+                case "2" ->
                     // Menu pour les différents hachages possibles
-                    MenuChoixHachage(scanner);
-                    break;
-                case "3":
+                        MenuChoixHachage(scanneur);
+                case "3" ->
                     // Appel de la fonction pour générer un nombre aléatoire
-                    NombrePseudoAleatoires();
-                    break;
-                case "4":
-                    System.out.println("Description des outils - à venir.");
-                    // TODO méthode à implementer
-                    break;
-                case "5":
-                case "quitter":
+                        NombrePseudoAleatoires();
+                case "4" -> System.out.println("Description des outils - à venir.");
+
+                // TODO méthode à implementer
+                case "5", "quitter" ->
                     // Sortir de la boucle et quitter l'application
-                    stopApplication = true;
-                    break;
-                default:
+                        stopApplication = true;
+                default -> {
                     // Message d'erreur pour les entrées invalides
                     System.out.println("---------------------");
                     System.out.println(COULEUR_ROUGE + "Merci de mettre un input correct" + COULEUR_PAR_DEFAUT);
-                    break;
+                }
             }
         }
 
@@ -84,38 +78,35 @@ public class MenuClass {
             // Lire et vérifier l'entrée de l'utilisateur
             String entree = VerificationEntree(scanner, 1, 5);
             switch (entree) {
-                case "1":
+                case "1" -> {
                     System.out.println("---------------------");
                     System.out.println("Option ROT(X) sélectionnée");
-                    // TODO méthode à implementer
-                    break;
-                case "2":
+                }
+                // TODO méthode à implementer
+                case "2" -> {
                     System.out.println("---------------------");
                     System.out.println("Option Vigenère sélectionnée");
-                    // TODO méthode à implementer
-                    break;
-                case "3":
+                }
+                // TODO méthode à implementer
+                case "3" -> {
                     System.out.println("---------------------");
                     System.out.println("Option Carré de Polybe sélectionnée");
-                    // TODO méthode à implementer
-                    break;
-                case "4":
+                }
+                // TODO méthode à implementer
+                case "4" ->
                     // Retour au menu principal
-                    retourMenuDemarage = true;
-                    break;
-                case "5":
-                case "quitter":
+                        retourMenuDemarage = true;
+                case "5", "quitter" ->
                     // Quitter l'application
-                    ArretApplication();
-                    break;
-                default:
-                    break;
+                        ArretApplication();
+                default -> {
+                }
             }
         }
     }
 
     // Méthode pour afficher et gérer les options de hachage
-    public static void MenuChoixHachage(Scanner scanner) {
+    public static void MenuChoixHachage(Scanner scanneur) {
         boolean retourMenuDemarage = false;
 
         while (!retourMenuDemarage) {
@@ -130,34 +121,31 @@ public class MenuClass {
             System.out.print("Veuillez faire un choix entre 1 et 5 : ");
 
             // Lire et vérifier l'entrée de l'utilisateur
-            String entree = VerificationEntree(scanner, 1, 5);
+            String entree = VerificationEntree(scanneur, 1, 5);
             switch (entree) {
-                case "1":
+                case "1" -> {
                     System.out.println("---------------------");
                     System.out.println("Option Enigma sélectionnée");
-                    // TODO méthode à implementer
-                    break;
-                case "2":
+                }
+                // TODO méthode à implementer
+                case "2" -> {
                     System.out.println("---------------------");
                     System.out.println("Option RC4 sélectionnée");
-                    // TODO méthode à implementer
-                    break;
-                case "3":
+                }
+                // TODO méthode à implementer
+                case "3" -> {
                     System.out.println("---------------------");
                     System.out.println("Option SHA-256 sélectionnée");
-                    // TODO méthode à implementer
-                    break;
-                case "4":
+                }
+                // TODO méthode à implementer
+                case "4" ->
                     // Retour au menu principal
-                    retourMenuDemarage = true;
-                    break;
-                case "5":
-                case "quitter":
+                        retourMenuDemarage = true;
+                case "5", "quitter" ->
                     // Quitter l'application
-                    ArretApplication();
-                    break;
-                default:
-                    break;
+                        ArretApplication();
+                default -> {
+                }
             }
         }
     }

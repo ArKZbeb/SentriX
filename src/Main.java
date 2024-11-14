@@ -4,13 +4,13 @@ import static Menu.MenuClass.MenuDemarage;
 
 public class Main {
     public static void main(String[] args) {
-        // Initialiser le scanner
-        Scanner scanner = new Scanner(System.in);
+        // Initialiser le scanneur
+        Scanner scanneur = new Scanner(System.in);
 
         // Lancer le menu de démarrage
-        MenuDemarage(scanner);
+        MenuDemarage(scanneur);
 
-        // Fermer le scanner à la fin
-        scanner.close();
+        // Fermer le scanneur à la fin
+        scanneur.close();
     }
 }

@@ -10,7 +10,7 @@ public class CommonClass {
     public static String COULEUR_ROUGE = "\u001B[31m";
     public static String COULEUR_PAR_DEFAUT = "\u001B[0m";
 
-    public static String VerificationEntree(Scanner scanner, int chiffreMin, int chiffreMax) {
+    public static String VerificationEntree(Scanner scanneur, int chiffreMin, int chiffreMax) {
         List<String> entreeCorrecte = new ArrayList<>();
 
         // Crée une liste des entrées valides en fonction de chiffreMin et chiffreMax
@@ -19,13 +19,13 @@ public class CommonClass {
         }
 
         // Lecture de l'entrée de l'utilisateur
-        String entree = scanner.next();
+        String entree = scanneur.next();
 
         // Vérifie si l'entrée est incluse dans la liste des valeurs valides
         if (!entreeCorrecte.contains(entree)) {
             // Affiche un message d'erreur en rouge si l'entrée n'est pas valide
             System.out.println("---------------------");
-            System.out.println(COULEUR_ROUGE + "Merci de mettre un input correct" + COULEUR_PAR_DEFAUT);
+            System.out.println(COULEUR_ROUGE + "Merci de mettre une entrée correcte" + COULEUR_PAR_DEFAUT);
         }
 
         // Retourne l'entrée saisie (qu'elle soit valide ou non, pour traitement dans le menu principal)
