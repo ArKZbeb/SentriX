@@ -1,28 +1,13 @@
 package Chiffrement;
 
-import java.util.Scanner;
-
 public class VigenereCipher {
+    private static final int LIMITE_CARACTERES_MESSAGE = 1000;
+    private static final int LIMITE_CARACTERES_CLE = 100;
 
-    public static void chiffrer(Scanner scanner) {
-        System.out.print("Entrez le message à chiffrer avec Vigenère : ");
-        String message = scanner.nextLine();
-        System.out.print("Entrez la clé pour Vigenère : ");
-        String key = scanner.nextLine();
-        System.out.println("Message chiffré : " + chiffrerTexte(message, key));
-    }
-
-    public static void dechiffrer(Scanner scanner) {
-        System.out.print("Entrez le message à déchiffrer avec Vigenère : ");
-        String message = scanner.nextLine();
-        System.out.print("Entrez la clé pour Vigenère : ");
-        String key = scanner.nextLine();
-        System.out.println("Message déchiffré : " + dechiffrerTexte(message, key));
-    }
-
-    public static String chiffrerTexte(String texte, String cle) {
+    public static String chiffrer(String texte, String cle) {
         StringBuilder result = new StringBuilder();
         int cleIndex = 0;
+
         for (int i = 0; i < texte.length(); i++) {
             char c = texte.charAt(i);
             char cleChar = cle.charAt(cleIndex % cle.length());
@@ -39,9 +24,10 @@ public class VigenereCipher {
         return result.toString();
     }
 
-    public static String dechiffrerTexte(String texte, String cle) {
+    public static String dechiffrer(String texte, String cle) {
         StringBuilder result = new StringBuilder();
         int cleIndex = 0;
+
         for (int i = 0; i < texte.length(); i++) {
             char c = texte.charAt(i);
             char cleChar = cle.charAt(cleIndex % cle.length());

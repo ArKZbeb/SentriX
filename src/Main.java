@@ -14,12 +14,12 @@ public class Main {
         System.out.print("Votre choix : ");
         
         int choix = scanner.nextInt();
-        scanner.nextLine(); // Pour consommer le retour à la ligne après le choix
+        scanner.nextLine(); // Consommer le retour à la ligne
 
         if (choix == 1) {
-            executerChiffrement(scanner);
+            chiffrerMenu(scanner);
         } else if (choix == 2) {
-            executerDechiffrement(scanner);
+            dechiffrerMenu(scanner);
         } else {
             System.out.println("Choix invalide. Veuillez relancer le programme.");
         }
@@ -27,7 +27,7 @@ public class Main {
         scanner.close();
     }
 
-    private static void executerChiffrement(Scanner scanner) {
+    private static void chiffrerMenu(Scanner scanner) {
         System.out.println("Choisissez le type de chiffrement :");
         System.out.println("1 - Enigma");
         System.out.println("2 - Carré de Polybe");
@@ -42,18 +42,23 @@ public class Main {
                 Enigma.enigmaChiffrer(scanner);
                 break;
             case 2:
-                CarreDePolybe.chiffrer(scanner);
+                System.out.print("Entrez le message à chiffrer avec le Carré de Polybe : ");
+                String messagePolybe = scanner.nextLine();
+                System.out.println("Message chiffré : " + CarreDePolybe.chiffrer(messagePolybe));
                 break;
             case 3:
-                VigenereCipher.chiffrer(scanner);
+                System.out.print("Entrez le message à chiffrer avec Vigenère : ");
+                String messageVigenere = scanner.nextLine();
+                System.out.print("Entrez la clé pour Vigenère : ");
+                String keyVigenere = scanner.nextLine();
+                System.out.println("Message chiffré : " + VigenereCipher.chiffrer(messageVigenere, keyVigenere));
                 break;
             default:
-                System.out.println("Choix invalide.");
-                break;
+                System.out.println("Choix invalide. Veuillez relancer le programme.");
         }
     }
 
-    private static void executerDechiffrement(Scanner scanner) {
+    private static void dechiffrerMenu(Scanner scanner) {
         System.out.println("Choisissez le type de déchiffrement :");
         System.out.println("1 - Enigma");
         System.out.println("2 - Carré de Polybe");
@@ -68,14 +73,19 @@ public class Main {
                 Enigma.enigmaDechiffrer(scanner);
                 break;
             case 2:
-                CarreDePolybe.dechiffrer(scanner);
+                System.out.print("Entrez le message à déchiffrer avec le Carré de Polybe : ");
+                String messagePolybe = scanner.nextLine();
+                System.out.println("Message déchiffré : " + CarreDePolybe.dechiffrer(messagePolybe));
                 break;
             case 3:
-                VigenereCipher.dechiffrer(scanner);
+                System.out.print("Entrez le message à déchiffrer avec Vigenère : ");
+                String messageVigenere = scanner.nextLine();
+                System.out.print("Entrez la clé pour Vigenère : ");
+                String keyVigenere = scanner.nextLine();
+                System.out.println("Message déchiffré : " + VigenereCipher.dechiffrer(messageVigenere, keyVigenere));
                 break;
             default:
-                System.out.println("Choix invalide.");
-                break;
+                System.out.println("Choix invalide. Veuillez relancer le programme.");
         }
     }
 }
