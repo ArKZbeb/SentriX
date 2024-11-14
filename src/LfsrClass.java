@@ -16,14 +16,24 @@ public class LfsrClass {
             }
             // Initialiser le LFSR avec la graine entrée
             StringBuilder valeurBinaireStr = LFSR(entree);
+
             // Nombre d'étapes à simuler
-            int etapes = 5;
+            int etapes = 10;
+            StringBuilder resultat = new StringBuilder();
             for (int i = 0; i < etapes; i++) {
                 int nouveauBit = etape(valeurBinaireStr, 0, 6); // XOR bits aux positions 0 et 6
-                System.out.println("Étape " + (i + 1) + ": " + valeurBinaireStr + " Nouveau Bit: " + nouveauBit);
+                resultat.append(nouveauBit);
             }
+            System.out.println("Resultat : " + resultat);
+            BinaireVersDecimal(resultat);
         }
         scanneur.close();
+    }
+
+    private static void BinaireVersDecimal(StringBuilder resultat) {
+        // Convertit le résultat binaire en décimal
+        int decimal = Integer.parseInt(resultat.toString(), 2);
+        System.out.println("Resultat en decimal : " + decimal);
     }
 
     public static StringBuilder LFSR(String graine) {
@@ -63,4 +73,6 @@ public class LfsrClass {
         }
         return binaire;
     }
+
+
 }
