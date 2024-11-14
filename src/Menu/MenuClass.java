@@ -9,6 +9,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import static Common.CommonClass.*;
 import static Hash.HachageClass.Hachage256;
+import static Hash.HachageClass.HachageMD5;
 
 public class MenuClass {
     // Définition des codes de couleurs pour le texte dans la console (rouge et blanc par défaut)
@@ -123,13 +124,14 @@ public class MenuClass {
             System.out.println("1. Enigma");
             System.out.println("2. RC4");
             System.out.println("3. SHA-256");
-            System.out.println("4. Retour en arrière");
-            System.out.println("5. Quitter");
+            System.out.println("4. MD5");
+            System.out.println("5. Retour en arrière");
+            System.out.println("6. Quitter");
             System.out.println("---------------------");
-            System.out.print("Veuillez faire un choix entre 1 et 5 : ");
+            System.out.print("Veuillez faire un choix entre 1 et 6 : ");
 
             // Lire et vérifier l'entrée de l'utilisateur
-            String entree = VerificationEntree(scanneur, 1, 5);
+            String entree = VerificationEntree(scanneur, 1, 6);
             switch (entree) {
                 case "1" -> {
                     System.out.println("---------------------");
@@ -145,11 +147,15 @@ public class MenuClass {
                     System.out.println("---------------------");
                     Hachage256(scanneur);
                 }
+                case "4" -> {
+                    System.out.println("---------------------");
+                    HachageMD5(scanneur);
+                }
                 // TODO méthode à implementer
-                case "4" ->
+                case "5" ->
                     // Retour au menu principal
                         retourMenuDemarage = true;
-                case "5", "quitter" ->
+                case "6", "quitter" ->
                     // Quitter l'application
                         ArretApplication();
                 default -> {
@@ -199,9 +205,10 @@ public class MenuClass {
                 case "3" -> {System.out.println("Retour au menu principal.");
                     continuer = false;
                 }
-                default -> System.out.println("Choix invalide, veuillez réessayer.");
-            }
-            if (!choix.equals("3")) {
+                default -> {
+                    System.out.println("---------------------");
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                }
             }
         }
     }

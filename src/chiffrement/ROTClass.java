@@ -51,7 +51,7 @@ public class ROTClass {
     // Méthode permettant de demander un décalage valide entre 0 et 25
     public static int demanderDecalage() {
         java.util.Scanner lecteur = new java.util.Scanner(System.in);
-        int decalage = 0;
+        int decalage;
 
         while (true) {
             System.out.print("Entrez la valeur de décalage (entre 0 et 25) : ");
