@@ -7,12 +7,20 @@ public class ROTClass {
         // Permet de limiter le décalage à l'intervalle [0,25]
         decalage = decalage % 26;
 
+
         // Permet de parcours chaque caractère du texte
         for (char caractere : texte.toCharArray()) {
 
             // Permet de voir si le caractère est une lettre, applique le chiffrement ROT(X)
-            if (Character.isLetter(caractere)) {
-                caractere = (char) ((caractere - 'a' + decalage) % 26 + 'a');            }
+            if (caractere >= 'a' && caractere <= 'z') {
+                caractere = (char) ((caractere - 'a' + decalage) % 26 + 'a');
+
+            }
+            // Vérifie si le caractère est une lettre majuscule
+            else if (caractere >= 'A' && caractere <= 'Z') {
+                caractere = (char) ((caractere - 'A' + decalage) % 26 + 'A');
+            }
+
             resultat.append(caractere);
         }
         return resultat.toString();
@@ -27,8 +35,8 @@ public class ROTClass {
         System.out.print("Entrez le texte à chiffrer (minuscule uniquement) : ");
         message = lecteur.nextLine();
 
-        // Permet a la boucle de demander un texte en minuscules uniquement
-        while (!message.matches("[a-z]+")) {
+        // Permet a la boucle de vérifier s'ils contient au moins une lettre
+        while (!message.matches(".*[a-zA-Z]+.*")) {
             System.out.println("Erreur : Le texte doit contenir uniquement des lettres minuscules.");
             System.out.print("Entrez à nouveau le texte à chiffrer (minuscule uniquement) : ");
             message = lecteur.nextLine();
@@ -55,5 +63,7 @@ public class ROTClass {
 
         // Permet d'afficher le message chiffré
         System.out.println("Message chiffré : " + messageChiffre);
+
+        lecteur.close();
     }
 }
