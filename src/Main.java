@@ -1,3 +1,5 @@
+import Chiffrement.VigenereCipher;
+
 public class Main {
     public static void main(String[] args) {
         // Test de chiffrement de Vigenère

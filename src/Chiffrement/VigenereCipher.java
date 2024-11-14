@@ -1,3 +1,4 @@
+package Chiffrement;
 import java.util.Scanner;
 
 public class VigenereCipher {
