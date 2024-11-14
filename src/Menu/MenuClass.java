@@ -1,6 +1,11 @@
 package Menu;
 
+
+import chiffrement.ROTClass;
+
+
 import java.security.NoSuchAlgorithmException;
+
 import java.util.Scanner;
 import static Common.CommonClass.*;
 import static Hash.HachageClass.Hachage256;
@@ -84,6 +89,7 @@ public class MenuClass {
                 case "1" -> {
                     System.out.println("---------------------");
                     System.out.println("Option ROT(X) sélectionnée");
+                    MenuROT(scanner);
                 }
                 // TODO méthode à implementer
                 case "2" -> {
@@ -157,6 +163,56 @@ public class MenuClass {
             }
         }
     }
+
+    // Dans MenuClass
+    public static void MenuROT(Scanner scanner) {
+
+        boolean continuer = true;
+
+        while (continuer){
+            System.out.println("---------------------");
+            System.out.println("1. Chiffrer un message");
+            System.out.println("2. Déchiffrer un message");
+            System.out.println("3. Retour");
+            System.out.println("---------------------");
+            System.out.print("Veuillez faire un choix entre 1 et 3 : ");
+
+            String choix = scanner.next();
+
+            switch (choix) {
+                case "1" -> {
+                    // Permet de demander à l'utilisateur de saisir un texte contenant uniquement des lettres
+                    String texte = ROTClass.demanderTexte("Entrez le texte à chiffrer : ");
+
+                    // Permet de demander à l'utilisateur de saisir un décalage valide
+                    int decalage = ROTClass.demanderDecalage();
+
+                    // Permet chiffrer le texte avec le décalage
+                    String resultat = ROTClass.ROTChiffrer(texte, decalage);
+                    System.out.println("Message chiffré : " + resultat);
+                }
+                case "2" -> {
+                    // Permet de demander à l'utilisateur de saisir un texte contenant uniquement des lettres
+                    String texte = ROTClass.demanderTexte("Entrez le texte à déchiffrer : ");
+
+                    // Permet de demander à l'utilisateur de saisir un décalage valide
+                    int decalage = ROTClass.demanderDecalage();
+
+                    // Peremt de déchiffrer le texte avec le décalage
+                    String resultat = ROTClass.ROTDechiffrer(texte, decalage);
+                    System.out.println("Message déchiffré : " + resultat);
+                }
+                case "3" -> {System.out.println("Retour au menu principal.");
+                    continuer = false;
+                }
+                default -> {
+                    System.out.println("---------------------");
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                }
+            }
+        }
+    }
+
 
     // Méthode pour générer et afficher un nombre pseudo-aléatoire (fonctionnalité à ajouter)
     public static void NombrePseudoAleatoires() {
