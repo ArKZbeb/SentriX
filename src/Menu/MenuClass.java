@@ -1,7 +1,9 @@
 package Menu;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import static Common.CommonClass.*;
+import static Hash.HachageClass.Hachage256;
 
 public class MenuClass {
     // Définition des codes de couleurs pour le texte dans la console (rouge et blanc par défaut)
@@ -9,7 +11,7 @@ public class MenuClass {
     public static String COULEUR_PAR_DEFAUT = "\u001B[0m";
 
     // Méthode pour afficher et gérer le menu principal de démarrage
-    public static void MenuDemarage(Scanner scanneur) {
+    public static void MenuDemarage(Scanner scanneur) throws NoSuchAlgorithmException {
         // Variable pour contrôler la boucle d'exécution de l'application
         boolean stopApplication = false;
 
@@ -106,7 +108,7 @@ public class MenuClass {
     }
 
     // Méthode pour afficher et gérer les options de hachage
-    public static void MenuChoixHachage(Scanner scanneur) {
+    public static void MenuChoixHachage(Scanner scanneur) throws NoSuchAlgorithmException {
         boolean retourMenuDemarage = false;
 
         while (!retourMenuDemarage) {
@@ -135,7 +137,7 @@ public class MenuClass {
                 // TODO méthode à implementer
                 case "3" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option SHA-256 sélectionnée");
+                    Hachage256(scanneur);
                 }
                 // TODO méthode à implementer
                 case "4" ->
