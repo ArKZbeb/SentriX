@@ -1,17 +1,12 @@
 package Menu;
 
 
-import chiffrement.ROTClass;
 import chiffrement.Rc4;
 
 
 import java.security.NoSuchAlgorithmException;
-
-import java.util.Base64;
-
-import java.security.NoSuchAlgorithmException;
-
 import java.util.Scanner;
+
 import static Chiffrement.CarreDePolybeClass.GlobaleCarreDePolybeManageur;
 import static Chiffrement.EnigmaClass.enigmaChiffrer;
 import static Chiffrement.EnigmaClass.enigmaDechiffrer;
@@ -66,8 +61,6 @@ public class MenuClass {
                 case "4" ->
                     // Menu pour les différentes documentations
                         AfficherDocumentation(scanneur);
-
-                // TODO méthode à implementer
                 case "5", "quitter" ->
                     // Sortir de la boucle et quitter l'application
                         stopApplication = true;
@@ -153,7 +146,6 @@ public class MenuClass {
                     System.out.println("Option RC4 sélectionnée");
                     MenuRC4(scanneur);
                 }
-                // TODO méthode à implementer
                 case "2" -> {
                     System.out.println("---------------------");
                     Hachage256(scanneur);
@@ -178,7 +170,7 @@ public class MenuClass {
 
         boolean continuer = true;
 
-        while (continuer){
+        while (continuer) {
             String choix = Selection(scanneur);
 
             switch (choix) {
@@ -191,7 +183,7 @@ public class MenuClass {
                 }
                 default -> {
                     System.out.println("---------------------");
-                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer." + COULEUR_PAR_DEFAUT);
                     System.out.println("---------------------");
                 }
             }
@@ -202,7 +194,7 @@ public class MenuClass {
 
         boolean continuer = true;
 
-        while (continuer){
+        while (continuer) {
             String choix = Selection(scanneur);
 
             switch (choix) {
@@ -214,7 +206,7 @@ public class MenuClass {
                 }
                 default -> {
                     System.out.println("---------------------");
-                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer." + COULEUR_PAR_DEFAUT);
                     System.out.println("---------------------");
                 }
             }
@@ -225,7 +217,7 @@ public class MenuClass {
 
         boolean continuer = true;
 
-        while (continuer){
+        while (continuer) {
             String choix = Selection(scanneur);
 
             switch (choix) {
@@ -237,7 +229,7 @@ public class MenuClass {
                 }
                 default -> {
                     System.out.println("---------------------");
-                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer." + COULEUR_PAR_DEFAUT);
                     System.out.println("---------------------");
                 }
             }
@@ -249,17 +241,18 @@ public class MenuClass {
 
         boolean continuer = true;
 
-        while (continuer){
+        while (continuer) {
             String choix = Selection(scanneur);
 
             switch (choix) {
                 case "1", "2" -> GlobaleROTManageur(choix);
-                case "3" -> {System.out.println("Retour au menu principal.");
+                case "3" -> {
+                    System.out.println("Retour au menu principal.");
                     continuer = false;
                 }
                 default -> {
                     System.out.println("---------------------");
-                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer." + COULEUR_PAR_DEFAUT);
                     System.out.println("---------------------");
                 }
             }
