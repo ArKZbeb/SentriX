@@ -8,6 +8,7 @@ import static Chiffrement.EnigmaClass.enigmaDechiffrer;
 import static Chiffrement.ROTClass.*;
 import static Chiffrement.VigenereCipherClass.GlobaleVigenereManageur;
 import static Common.CommonClass.*;
+import static Doc.DocumentationClass.AfficherDocumentation;
 import static Hash.HachageClass.Hachage256;
 import static Hash.HachageClass.HachageMD5;
 import static lfsr.LfsrClass.*;
@@ -52,7 +53,9 @@ public class MenuClass {
                 case "3" ->
                     // Appel de la fonction pour générer un nombre aléatoire
                         LFSR(scanneur);
-                case "4" -> System.out.println("Description des outils - à venir.");
+                case "4" ->
+                    // Menu pour les différentes documentations
+                        AfficherDocumentation(scanneur);
 
                 // TODO méthode à implementer
                 case "5", "quitter" ->
