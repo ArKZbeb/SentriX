@@ -18,7 +18,7 @@ import static Common.CommonClass.*;
 import static Doc.DocumentationClass.AfficherDocumentation;
 import static Hash.HachageClass.Hachage256;
 import static Hash.HachageClass.HachageMD5;
-import static lfsr.LfsrClass.*;
+import static Lfsr.LfsrClass.*;
 
 public class MenuClass {
     // Définition des codes de couleurs pour le texte dans la console (rouge et blanc par défaut)
@@ -40,7 +40,7 @@ public class MenuClass {
             System.out.println("---------------------");
             System.out.println("1. Choisissez un chiffrement");
             System.out.println("2. Choisissez un hachage");
-            System.out.println("3. Récupérer un nombre pseudo aléatoire");
+            System.out.println("3. Double actions");
             System.out.println("4. Récupérer un nombre pseudo aléatoire");
             System.out.println("5. Descriptions des outils disponibles");
             System.out.println("6. Quitter");
