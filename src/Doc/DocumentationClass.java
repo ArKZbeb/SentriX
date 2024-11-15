@@ -2,6 +2,8 @@ package Doc;
 
 import java.util.Scanner;
 
+import static Common.CommonClass.NettoyageConsole;
+
 public class DocumentationClass {
 
     // Codes de couleur pour les descriptions
@@ -11,6 +13,7 @@ public class DocumentationClass {
     // Méthode principale pour afficher la documentation et naviguer dans le menu
     public static void AfficherDocumentation(Scanner scanner) {
         boolean continuer = true;
+        NettoyageConsole();
 
         while (continuer) {
             // Menu principal de documentation
