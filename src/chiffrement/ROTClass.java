@@ -1,9 +1,38 @@
-package chiffrement;
+package Chiffrement;
 
 public class ROTClass {
 
+    // Méthode permetant de rediriger vers le chiffrement ou l'inverse en fonction de l'entree de l'utilisateur
+    public static void GlobaleROTManageur(String entree){
+        switch(entree){
+            case "1" ->{
+                // Permet de demander à l'utilisateur de saisir un texte contenant uniquement des lettres
+                String texte = DemanderTexte("Entrez le texte à chiffrer : ");
+
+                // Permet de demander à l'utilisateur de saisir un décalage valide
+                int decalage = DemanderDecalage();
+
+                // Permet chiffrer le texte avec le décalage
+                String resultat = ROTClass.ROTChiffrer(texte, decalage);
+
+                System.out.println("Message chiffré : " + resultat);
+            }
+            case "2" ->{
+                // Permet de demander à l'utilisateur de saisir un texte contenant uniquement des lettres
+                String texte = DemanderTexte("Entrez le texte à déchiffrer : ");
+
+                // Permet de demander à l'utilisateur de saisir un décalage valide
+                int decalage = DemanderDecalage();
+
+                // Peremt de déchiffrer le texte avec le décalage
+                String resultat = ROTClass.ROTDechiffrer(texte, decalage);
+                System.out.println("Message déchiffré : " + resultat);
+            }
+        }
+    }
+
     // Méthode permettant de chiffrer un message avec un décalage donné (ROT-X)
-    public static String ROTChiffrer(String texte, int decalage) {
+    private static String ROTChiffrer(String texte, int decalage) {
         StringBuilder resultat = new StringBuilder();
         // Permet de limiter le décalage à l'intervalle [0,25]
         decalage = decalage % 26;
@@ -26,13 +55,13 @@ public class ROTClass {
     }
 
     // Méthode permettant de déchiffrer un message avec un décalage donné (ROT-X inverse)
-    public static String ROTDechiffrer(String texte, int decalage) {
+    private static String ROTDechiffrer(String texte, int decalage) {
         // Permet d'applique l'inverse du décalage pour déchiffrer
         return ROTChiffrer(texte, 26 - (decalage % 26));
     }
 
     // Méthode permettant de demander un texte valide
-    public static String demanderTexte(String message) {
+    private static String DemanderTexte(String message) {
         java.util.Scanner lecteur = new java.util.Scanner(System.in);
         String texte;
         System.out.print(message);
@@ -47,9 +76,8 @@ public class ROTClass {
         return texte;
     }
 
-
     // Méthode permettant de demander un décalage valide entre 0 et 25
-    public static int demanderDecalage() {
+    private static int DemanderDecalage() {
         java.util.Scanner lecteur = new java.util.Scanner(System.in);
         int decalage;
 

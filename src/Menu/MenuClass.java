@@ -1,12 +1,12 @@
 package Menu;
 
-
-import chiffrement.ROTClass;
-
-
 import java.security.NoSuchAlgorithmException;
-
 import java.util.Scanner;
+import static Chiffrement.CarreDePolybeClass.GlobaleCarreDePolybeManageur;
+import static Chiffrement.EnigmaClass.enigmaChiffrer;
+import static Chiffrement.EnigmaClass.enigmaDechiffrer;
+import static Chiffrement.ROTClass.*;
+import static Chiffrement.VigenereCipherClass.GlobaleVigenereManageur;
 import static Common.CommonClass.*;
 import static Hash.HachageClass.Hachage256;
 import static Hash.HachageClass.HachageMD5;
@@ -51,7 +51,7 @@ public class MenuClass {
                         MenuChoixHachage(scanneur);
                 case "3" ->
                     // Appel de la fonction pour générer un nombre aléatoire
-                        MenuLFSR(scanneur);
+                        LFSR(scanneur);
                 case "4" -> System.out.println("Description des outils - à venir.");
 
                 // TODO méthode à implementer
@@ -70,7 +70,7 @@ public class MenuClass {
     }
 
     // Méthode pour afficher et gérer les options de chiffrement
-    public static void MenuChoixChiffrement(Scanner scanner) {
+    public static void MenuChoixChiffrement(Scanner scanneur) {
         boolean retourMenuDemarage = false;
 
         while (!retourMenuDemarage) {
@@ -85,24 +85,20 @@ public class MenuClass {
             System.out.print("Veuillez faire un choix entre 1 et 5 : ");
 
             // Lire et vérifier l'entrée de l'utilisateur
-            String entree = VerificationEntree(scanner, 1, 5);
+            String entree = VerificationEntree(scanneur, 1, 5);
             switch (entree) {
                 case "1" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option ROT(X) sélectionnée");
-                    MenuROT(scanner);
+                    MenuROT(scanneur);
                 }
-                // TODO méthode à implementer
                 case "2" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option Vigenère sélectionnée");
+                    MenuVigenere(scanneur);
                 }
-                // TODO méthode à implementer
                 case "3" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option Carré de Polybe sélectionnée");
+                    MenuCarreDePolybe(scanneur);
                 }
-                // TODO méthode à implementer
                 case "4" ->
                     // Retour au menu principal
                         retourMenuDemarage = true;
@@ -136,9 +132,8 @@ public class MenuClass {
             switch (entree) {
                 case "1" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option Enigma sélectionnée");
+                    MenuEnigma(scanneur);
                 }
-                // TODO méthode à implementer
                 case "2" -> {
                     System.out.println("---------------------");
                     System.out.println("Option RC4 sélectionnée");
@@ -152,7 +147,6 @@ public class MenuClass {
                     System.out.println("---------------------");
                     HachageMD5(scanneur);
                 }
-                // TODO méthode à implementer
                 case "5" ->
                     // Retour au menu principal
                         retourMenuDemarage = true;
@@ -165,82 +159,106 @@ public class MenuClass {
         }
     }
 
-    // Dans MenuClass
-    public static void MenuROT(Scanner scanner) {
+    public static void MenuEnigma(Scanner scanneur) {
 
         boolean continuer = true;
 
         while (continuer){
-            System.out.println("---------------------");
-            System.out.println("1. Chiffrer un message");
-            System.out.println("2. Déchiffrer un message");
-            System.out.println("3. Retour");
-            System.out.println("---------------------");
-            System.out.print("Veuillez faire un choix entre 1 et 3 : ");
-
-            String choix = scanner.next();
+            String choix = Selection(scanneur);
 
             switch (choix) {
-                case "1" -> {
-                    // Permet de demander à l'utilisateur de saisir un texte contenant uniquement des lettres
-                    String texte = ROTClass.demanderTexte("Entrez le texte à chiffrer : ");
-
-                    // Permet de demander à l'utilisateur de saisir un décalage valide
-                    int decalage = ROTClass.demanderDecalage();
-
-                    // Permet chiffrer le texte avec le décalage
-                    String resultat = ROTClass.ROTChiffrer(texte, decalage);
-                    System.out.println("Message chiffré : " + resultat);
-                }
-                case "2" -> {
-                    // Permet de demander à l'utilisateur de saisir un texte contenant uniquement des lettres
-                    String texte = ROTClass.demanderTexte("Entrez le texte à déchiffrer : ");
-
-                    // Permet de demander à l'utilisateur de saisir un décalage valide
-                    int decalage = ROTClass.demanderDecalage();
-
-                    // Peremt de déchiffrer le texte avec le décalage
-                    String resultat = ROTClass.ROTDechiffrer(texte, decalage);
-                    System.out.println("Message déchiffré : " + resultat);
-                }
-                case "3" -> {System.out.println("Retour au menu principal.");
+                case "1" -> enigmaChiffrer(scanneur);
+                case "2" -> enigmaDechiffrer(scanneur);
+                case "3" -> {
+                    System.out.println("---------------------");
+                    System.out.println("Retour au menu principal.");
                     continuer = false;
                 }
                 default -> {
                     System.out.println("---------------------");
                     System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println("---------------------");
+                }
+            }
+        }
+    }
+
+    public static void MenuCarreDePolybe(Scanner scanneur) {
+
+        boolean continuer = true;
+
+        while (continuer){
+            String choix = Selection(scanneur);
+
+            switch (choix) {
+                case "1", "2" -> GlobaleCarreDePolybeManageur(choix, scanneur);
+                case "3" -> {
+                    System.out.println("---------------------");
+                    System.out.println("Retour au menu principal.");
+                    continuer = false;
+                }
+                default -> {
+                    System.out.println("---------------------");
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println("---------------------");
+                }
+            }
+        }
+    }
+
+    public static void MenuVigenere(Scanner scanneur) {
+
+        boolean continuer = true;
+
+        while (continuer){
+            String choix = Selection(scanneur);
+
+            switch (choix) {
+                case "1", "2" -> GlobaleVigenereManageur(choix, scanneur);
+                case "3" -> {
+                    System.out.println("---------------------");
+                    System.out.println("Retour au menu principal.");
+                    continuer = false;
+                }
+                default -> {
+                    System.out.println("---------------------");
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println("---------------------");
                 }
             }
         }
     }
 
 
-    public static void MenuLFSR(Scanner scanneur) {
-        // Boucle jusqu'à ce que l'utilisateur décide de quitter
-        while (true) {
-            System.out.println("---------------------");
-            System.out.println("Entrer une graine ou ecrire 'quitter' pour revenir en arrière:");
-            String entree = scanneur.next();
+    public static void MenuROT(Scanner scanneur) {
 
-            // Reviens au menu antérieur si l'utilisateur tape "quitter"
-            if (entree.equalsIgnoreCase("quitter")) {
-                System.out.println("Sortie...");
-                break;
-            }
-            // Initialiser le LFSR avec la graine entrée
-            StringBuilder valeurBinaireStr = LFSR(entree);
+        boolean continuer = true;
 
-            // Nombre d'étapes à simuler
-            int etapes = 10;
-            StringBuilder resultat = new StringBuilder();
-            for (int i = 0; i < etapes; i++) {
-                int nouveauBit = Etape(valeurBinaireStr, 0, 6); // XOR bits aux positions 0 et 6
-                resultat.append(nouveauBit);
+        while (continuer){
+            String choix = Selection(scanneur);
+
+            switch (choix) {
+                case "1", "2" -> GlobaleROTManageur(choix);
+                case "3" -> {System.out.println("Retour au menu principal.");
+                    continuer = false;
+                }
+                default -> {
+                    System.out.println("---------------------");
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println("---------------------");
+                }
             }
-            System.out.println("---------------------");
-            System.out.println("Resultat : " + resultat);
-            // Convertit le résultat binaire en décimal
-            BinaireVersDecimal(resultat);
         }
+    }
+
+
+    private static String Selection(Scanner scanneur) {
+        System.out.println("1. Chiffrer un message");
+        System.out.println("2. Déchiffrer un message");
+        System.out.println("3. Retour");
+        System.out.println("---------------------");
+        System.out.print("Veuillez faire un choix entre 1 et 3 : ");
+
+        return scanneur.next();
     }
 }

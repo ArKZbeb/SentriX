@@ -1,10 +1,43 @@
 package lfsr;
 
 import java.util.Arrays;
+import java.util.Scanner;
+
+import static Common.CommonClass.BinaireVersDecimal;
 
 public class LfsrClass {
+
+    public static void LFSR(Scanner scanneur) {
+        // Boucle jusqu'à ce que l'utilisateur décide de quitter
+        while (true) {
+            System.out.println("---------------------");
+            System.out.println("Entrer une graine ou ecrire 'quitter' pour revenir en arrière:");
+            String entree = scanneur.next();
+
+            // Reviens au menu antérieur si l'utilisateur tape "quitter"
+            if (entree.equalsIgnoreCase("quitter")) {
+                System.out.println("Sortie...");
+                break;
+            }
+            // Initialiser le LFSR avec la graine entrée
+            StringBuilder valeurBinaireStr = InitialisationLFSR(entree);
+
+            // Nombre d'étapes à simuler
+            int etapes = 10;
+            StringBuilder resultat = new StringBuilder();
+            for (int i = 0; i < etapes; i++) {
+                int nouveauBit = Etape(valeurBinaireStr, 0, 6); // XOR bits aux positions 0 et 6
+                resultat.append(nouveauBit);
+            }
+            System.out.println("---------------------");
+            System.out.println("Resultat : " + resultat);
+            // Convertit le résultat binaire en décimal
+            BinaireVersDecimal(resultat);
+        }
+    }
+
     // Méthode pour initialiser le LFSR avec une graine donnée
-    public static StringBuilder LFSR(String graine) {
+    public static StringBuilder InitialisationLFSR(String graine) {
         // Conversion de la graine en ascii
         byte[] valeurBinaire = graine.getBytes();
         System.out.println("---------------------");
