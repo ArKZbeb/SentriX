@@ -1,4 +1,4 @@
-package chiffrement;
+package Chiffrement;
 
 import java.util.Scanner;
 import java.util.Base64;
