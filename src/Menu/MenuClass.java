@@ -1,6 +1,16 @@
 package Menu;
 
+
+import chiffrement.ROTClass;
+import chiffrement.Rc4;
+
+
 import java.security.NoSuchAlgorithmException;
+
+import java.util.Base64;
+
+import java.security.NoSuchAlgorithmException;
+
 import java.util.Scanner;
 import static Chiffrement.CarreDePolybeClass.GlobaleCarreDePolybeManageur;
 import static Chiffrement.EnigmaClass.enigmaChiffrer;
@@ -141,6 +151,7 @@ public class MenuClass {
                 case "1" -> {
                     System.out.println("---------------------");
                     System.out.println("Option RC4 sélectionnée");
+                    MenuRC4(scanneur);
                 }
                 // TODO méthode à implementer
                 case "2" -> {
@@ -251,6 +262,54 @@ public class MenuClass {
                     System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
                     System.out.println("---------------------");
                 }
+            }
+        }
+    }
+
+    public static void MenuRC4(Scanner scanner) {
+        boolean continuer = true;
+
+        while (continuer) {
+            System.out.println("---------------------");
+            System.out.println("1. Chiffrer un message avec RC4");
+            System.out.println("2. Déchiffrer un message avec RC4");
+            System.out.println("3. Retour");
+            System.out.println("---------------------");
+            System.out.print("Veuillez faire un choix entre 1 et 3 : ");
+
+            String choix = scanner.next();
+
+            switch (choix) {
+                case "1" -> {
+                    // Permet de demander la clé et le message à chiffrer
+                    System.out.print("Entrez la clé de chiffrement : ");
+                    String cle = scanner.next();
+                    System.out.print("Entrez le message à chiffrer : ");
+                    String message = scanner.next();
+
+                    // Permet à la création de l'objet RC4
+                    Rc4 rc4 = new Rc4(cle);
+                    // Permet de faire appel à la méthode chiffrer
+
+                    String resultatBase64 = rc4.chiffrerEnBase64(message);
+                    System.out.println("Message chiffré (Base64) : " + resultatBase64);
+                }
+                case "2" -> {
+                    // Permet de demander la clé et le message à déchiffrer (Base64)
+                    System.out.print("Entrez la clé de chiffrement : ");
+                    String cle = scanner.next();
+                    System.out.print("Entrez le message à déchiffrer (Base64) : ");
+                    String messageChiffreBase64 = scanner.next();
+
+                    // Permet de déchiffrer le message encodé en Base64
+                    String messageDechiffre = Rc4.dechiffrerBase64(messageChiffreBase64, cle);
+                    System.out.println("Message déchiffré : " + messageDechiffre);
+                }
+                case "3" -> {
+                    System.out.println("Retour au menu principal.");
+                    continuer = false;
+                }
+                default -> System.out.println("Choix invalide, veuillez réessayer.");
             }
         }
     }
