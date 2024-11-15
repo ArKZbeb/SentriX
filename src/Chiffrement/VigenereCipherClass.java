@@ -1,12 +1,42 @@
 package Chiffrement;
 
+import java.util.Scanner;
+
 public class VigenereCipherClass {
-    // Limites de caractères pour le message et la clé
-    private static final int LIMITE_CARACTERES_MESSAGE = 1000;
-    private static final int LIMITE_CARACTERES_CLE = 100;
+    // Méthode permetant de rediriger vers le chiffrement ou l'inverse en fonction de l'entree de l'utilisateur
+    public static void GlobaleVigenereManageur(String entree, Scanner scanneur){
+        switch(entree){
+            case "1" ->{
+                // Permet de demander à l'utilisateur de saisir un texte contenant uniquement des lettres
+                System.out.println("Entrez le texte à chiffrer : ");
+                String texte = scanneur.next();
+
+                System.out.println("Entrez la clé : ");
+                String cle = scanneur.next();
+
+                // Permet chiffrer le texte
+                String resultat = VigenereChiffrer(texte, cle);
+
+                System.out.println("Message chiffré : " + resultat);
+            }
+            case "2" ->{
+                // Permet de demander à l'utilisateur de saisir un texte contenant uniquement des lettres
+                System.out.println("Entrez le texte à déchiffrer : ");
+                String texte = scanneur.next();
+
+                System.out.println("Entrez la clé : ");
+                String cle = scanneur.next();
+
+                // Permet de déchiffrer le texte
+                String resultat = VigenereDechiffrer(texte, cle);
+
+                System.out.println("Message déchiffré : " + resultat);
+            }
+        }
+    }
 
     // Méthode pour chiffrer un texte avec le chiffre de Vigenère
-    public static String chiffrer(String texte, String cle) {
+    public static String VigenereChiffrer(String texte, String cle) {
         StringBuilder result = new StringBuilder(); // StringBuilder pour construire le texte chiffré
         int cleIndex = 0; // Index pour suivre la position dans la clé
 
@@ -31,7 +61,7 @@ public class VigenereCipherClass {
     }
 
     // Méthode pour déchiffrer un texte chiffré avec le chiffre de Vigenère
-    public static String dechiffrer(String texte, String cle) {
+    public static String VigenereDechiffrer(String texte, String cle) {
         StringBuilder result = new StringBuilder(); // StringBuilder pour construire le texte déchiffré
         int cleIndex = 0; // Index pour suivre la position dans la clé
 

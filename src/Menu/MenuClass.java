@@ -6,6 +6,7 @@ import static Chiffrement.CarreDePolybeClass.GlobaleCarreDePolybeManageur;
 import static Chiffrement.EnigmaClass.enigmaChiffrer;
 import static Chiffrement.EnigmaClass.enigmaDechiffrer;
 import static Chiffrement.ROTClass.*;
+import static Chiffrement.VigenereCipherClass.GlobaleVigenereManageur;
 import static Common.CommonClass.*;
 import static Hash.HachageClass.Hachage256;
 import static Hash.HachageClass.HachageMD5;
@@ -92,9 +93,8 @@ public class MenuClass {
                 }
                 case "2" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option Vigenère sélectionnée");
+                    MenuVigenere(scanneur);
                 }
-                // TODO méthode à implementer
                 case "3" -> {
                     System.out.println("---------------------");
                     MenuCarreDePolybe(scanneur);
@@ -177,6 +177,7 @@ public class MenuClass {
                 default -> {
                     System.out.println("---------------------");
                     System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println("---------------------");
                 }
             }
         }
@@ -199,6 +200,30 @@ public class MenuClass {
                 default -> {
                     System.out.println("---------------------");
                     System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println("---------------------");
+                }
+            }
+        }
+    }
+
+    public static void MenuVigenere(Scanner scanneur) {
+
+        boolean continuer = true;
+
+        while (continuer){
+            String choix = Selection(scanneur);
+
+            switch (choix) {
+                case "1", "2" -> GlobaleVigenereManageur(choix, scanneur);
+                case "3" -> {
+                    System.out.println("---------------------");
+                    System.out.println("Retour au menu principal.");
+                    continuer = false;
+                }
+                default -> {
+                    System.out.println("---------------------");
+                    System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println("---------------------");
                 }
             }
         }
@@ -220,6 +245,7 @@ public class MenuClass {
                 default -> {
                     System.out.println("---------------------");
                     System.out.println(COULEUR_ROUGE + "Choix invalide, veuillez réessayer."+ COULEUR_PAR_DEFAUT);
+                    System.out.println("---------------------");
                 }
             }
         }
