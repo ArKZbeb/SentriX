@@ -13,7 +13,7 @@ public class ROTClass {
                 int decalage = DemanderDecalage();
 
                 // Permet chiffrer le texte avec le décalage
-                String resultat = ROTClass.ROTChiffrer(texte, decalage);
+                String resultat = ROTChiffrer(texte, decalage);
 
                 System.out.println("Message chiffré : " + resultat);
             }
@@ -25,14 +25,14 @@ public class ROTClass {
                 int decalage = DemanderDecalage();
 
                 // Peremt de déchiffrer le texte avec le décalage
-                String resultat = ROTClass.ROTDechiffrer(texte, decalage);
+                String resultat = ROTDechiffrer(texte, decalage);
                 System.out.println("Message déchiffré : " + resultat);
             }
         }
     }
 
     // Méthode permettant de chiffrer un message avec un décalage donné (ROT-X)
-    private static String ROTChiffrer(String texte, int decalage) {
+    public static String ROTChiffrer(String texte, int decalage) {
         StringBuilder resultat = new StringBuilder();
         // Permet de limiter le décalage à l'intervalle [0,25]
         decalage = decalage % 26;

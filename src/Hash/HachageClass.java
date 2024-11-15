@@ -7,40 +7,46 @@ import java.util.Scanner;
 
 public class HachageClass {
 
-    public static void Hachage256(Scanner scanneur) throws NoSuchAlgorithmException {
-        // Demande à l'utilisateur de saisir le texte à hacher
-        System.out.println("Donnez votre mot à hacher");
+    public static String Hachage256(Scanner scanneur, String message) throws NoSuchAlgorithmException {
+        if(message.isEmpty()){
 
-        // Récupère la saisie de l'utilisateur
-        String texte = scanneur.next();
+            // Demande à l'utilisateur de saisir le texte à hacher
+            System.out.println("Donnez votre mot à hacher");
+
+            // Récupère la saisie de l'utilisateur
+            message = scanneur.next();
+        }
 
         // Initialise un objet MessageDigest pour utiliser l'algorithme SHA-256
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
         // Convertit le texte en un tableau de bytes (octets) en utilisant l'encodage UTF-8,
         // puis effectue le hachage avec SHA-256
-        byte[] motHashe = digest.digest(texte.getBytes(StandardCharsets.UTF_8));
+        byte[] motHashe = digest.digest(message.getBytes(StandardCharsets.UTF_8));
 
         // Affiche le tableau de bytes représentant le hachage SHA-256 du texte
         System.out.println(TransformationEnHexadecimal(motHashe));
+        return TransformationEnHexadecimal(motHashe).toString();
     }
 
-    public static void HachageMD5(Scanner scanneur) throws NoSuchAlgorithmException {
-        // Demande à l'utilisateur de saisir le texte à hacher
-        System.out.println("Donnez votre mot à hacher");
+    public static String HachageMD5(Scanner scanneur, String message) throws NoSuchAlgorithmException {
+        if(message.isEmpty()) {
+            // Demande à l'utilisateur de saisir le texte à hacher
+            System.out.println("Donnez votre mot à hacher");
 
-        // Récupère la saisie de l'utilisateur
-        String texte = scanneur.next();
-
+            // Récupère la saisie de l'utilisateur
+            message = scanneur.next();
+        }
         // Initialise un objet MessageDigest pour utiliser l'algorithme MD5Q
         MessageDigest digest = MessageDigest.getInstance("MD5");
 
         // Convertit le texte en un tableau de bytes (octets) en utilisant l'encodage UTF-8,
         // puis effectue le hachage avec MD5
-        byte[] motHashe = digest.digest(texte.getBytes());
+        byte[] motHashe = digest.digest(message.getBytes());
 
         // Affiche le tableau de bytes représentant le hachage MD5 du texte
         System.out.println(TransformationEnHexadecimal(motHashe));
+        return TransformationEnHexadecimal(motHashe).toString();
     }
 
     // Méthode pour convertir un tableau de bytes en chaîne hexadécimale
