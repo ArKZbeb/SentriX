@@ -1,16 +1,15 @@
 package Chiffrement;
 
-import java.util.Scanner;
 import java.util.Base64;
 
-public class Rc4 {
+public class Rc4Class {
 
     // Tableau de permutation pour RC4
     private final int[] etat = new int[256];
     private int x, y;
 
     // Constructeur qui initialise l'état interne avec la clé
-    public Rc4(String cle) {
+    public Rc4Class(String cle) {
         // Index pour la génération de flux
         initialiser(cle);
     }
@@ -79,7 +78,7 @@ public class Rc4 {
         String messageChiffre = new String(messageChiffreBytes);
 
         // Permet de créer une instance de RC4 pour déchiffrer le message
-        Rc4 rc4Dechiffreur = new Rc4(cle);
+        Rc4Class rc4Dechiffreur = new Rc4Class(cle);
         // Permet de déchiffrer le message avec la clé
         return rc4Dechiffreur.chiffrer(messageChiffre);
     }

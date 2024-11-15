@@ -1,17 +1,19 @@
 package Menu;
 
 
-import Chiffrement.Rc4;
+import Chiffrement.Rc4Class;
 
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
+import static Chiffrement.CarreDePolybeClass.CarreDePolybeChiffrer;
 import static Chiffrement.CarreDePolybeClass.GlobaleCarreDePolybeManageur;
 import static Chiffrement.EnigmaClass.enigmaChiffrer;
 import static Chiffrement.EnigmaClass.enigmaDechiffrer;
 import static Chiffrement.ROTClass.*;
 import static Chiffrement.VigenereCipherClass.GlobaleVigenereManageur;
+import static Chiffrement.VigenereCipherClass.VigenereChiffrer;
 import static Common.CommonClass.*;
 import static Doc.DocumentationClass.AfficherDocumentation;
 import static Hash.HachageClass.Hachage256;
@@ -39,10 +41,11 @@ public class MenuClass {
             System.out.println("1. Choisissez un chiffrement");
             System.out.println("2. Choisissez un hachage");
             System.out.println("3. Récupérer un nombre pseudo aléatoire");
-            System.out.println("4. Descriptions des outils disponibles");
-            System.out.println("5. Quitter");
+            System.out.println("4. Récupérer un nombre pseudo aléatoire");
+            System.out.println("5. Descriptions des outils disponibles");
+            System.out.println("6. Quitter");
             System.out.println("---------------------");
-            System.out.print("Veuillez faire un choix entre 1 et 5 : ");
+            System.out.print("Veuillez faire un choix entre 1 et 6 : ");
 
             // Lire le choix de l'utilisateur
             String choix = scanneur.next();
@@ -57,11 +60,14 @@ public class MenuClass {
                         MenuChoixHachage(scanneur);
                 case "3" ->
                     // Appel de la fonction pour générer un nombre aléatoire
-                        LFSR(scanneur);
+                        MenuChiffrementEtHachage(scanneur);
                 case "4" ->
+                    // Appel de la fonction pour générer un nombre aléatoire
+                        LFSR(scanneur);
+                case "5" ->
                     // Menu pour les différentes documentations
                         AfficherDocumentation(scanneur);
-                case "5", "quitter" ->
+                case "6", "quitter" ->
                     // Sortir de la boucle et quitter l'application
                         stopApplication = true;
                 default -> {
@@ -143,16 +149,15 @@ public class MenuClass {
             switch (entree) {
                 case "1" -> {
                     System.out.println("---------------------");
-                    System.out.println("Option RC4 sélectionnée");
                     MenuRC4(scanneur);
                 }
                 case "2" -> {
                     System.out.println("---------------------");
-                    Hachage256(scanneur);
+                    Hachage256(scanneur, "");
                 }
                 case "3" -> {
                     System.out.println("---------------------");
-                    HachageMD5(scanneur);
+                    HachageMD5(scanneur, "");
                 }
                 case "4" ->
                     // Retour au menu principal
@@ -281,7 +286,7 @@ public class MenuClass {
                     String message = scanner.next();
 
                     // Permet à la création de l'objet RC4
-                    Rc4 rc4 = new Rc4(cle);
+                    Rc4Class rc4 = new Rc4Class(cle);
                     // Permet de faire appel à la méthode chiffrer
 
                     String resultatBase64 = rc4.chiffrerEnBase64(message);
@@ -295,7 +300,7 @@ public class MenuClass {
                     String messageChiffreBase64 = scanner.next();
 
                     // Permet de déchiffrer le message encodé en Base64
-                    String messageDechiffre = Rc4.dechiffrerBase64(messageChiffreBase64, cle);
+                    String messageDechiffre = Rc4Class.dechiffrerBase64(messageChiffreBase64, cle);
                     System.out.println("Message déchiffré : " + messageDechiffre);
                 }
                 case "3" -> {
@@ -305,6 +310,66 @@ public class MenuClass {
                 default -> System.out.println("Choix invalide, veuillez réessayer.");
             }
         }
+    }
+
+    public static void MenuChiffrementEtHachage(Scanner scanneur) throws NoSuchAlgorithmException {
+        // Sélection du chiffrement
+        System.out.println("---------------------");
+        System.out.println("Choisissez un chiffrement");
+        System.out.println("1. ROT(X)");
+        System.out.println("2. Vigenère");
+        System.out.println("3. Carré de Polybe");
+        System.out.println("4. Enigma");
+        System.out.println("---------------------");
+        System.out.print("Votre choix : ");
+        String choixChiffrement = VerificationEntree(scanneur, 1, 4);
+
+        // Entrée du message à chiffrer
+        System.out.println("Entrez le message à chiffrer : ");
+        String message = scanneur.next();
+        String messageChiffre = "";
+
+        // Application du chiffrement
+        switch (choixChiffrement) {
+            case "1" -> {
+                System.out.print("Entrez la clé pour ROT(X) : ");
+                int cle = scanneur.nextInt();
+                messageChiffre = ROTChiffrer(message, cle);
+            }
+            case "2" -> {
+                System.out.print("Entrez la clé pour Vigenère : ");
+                String cle = scanneur.next();
+                    messageChiffre = VigenereChiffrer(message, cle);
+            }
+            case "3" -> messageChiffre = CarreDePolybeChiffrer(message);
+            case "4" -> {
+                System.out.print("Entrez la clé pour Enigma : ");
+                String cle = scanneur.next();
+                messageChiffre = enigmaChiffrer(scanneur);
+            }
+            default -> System.out.println("Chiffrement invalide.");
+        }
+
+        System.out.println("Message après chiffrement : " + messageChiffre);
+
+        // Sélection du hachage
+        System.out.println("---------------------");
+        System.out.println("Choisissez un hachage");
+        System.out.println("1. SHA-256");
+        System.out.println("2. MD5");
+        System.out.println("---------------------");
+        System.out.print("Votre choix : ");
+        String choixHachage = VerificationEntree(scanneur, 1, 2);
+
+        // Application du hachage
+        String messageHache = "";
+        switch (choixHachage) {
+            case "1" -> messageHache = Hachage256(scanneur, messageHache);
+            case "2" -> messageHache = HachageMD5(scanneur, messageChiffre);
+            default -> System.out.println("Hachage invalide.");
+        }
+
+        System.out.println("Message après hachage : " + messageHache);
     }
 
 

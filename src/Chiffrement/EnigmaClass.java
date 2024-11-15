@@ -41,7 +41,7 @@ public class EnigmaClass {
     }
 
     // Méthode statique pour chiffrer un message avec l'interface console
-    public static void enigmaChiffrer(Scanner scanner) {
+        public static String enigmaChiffrer(Scanner scanner) {
         System.out.print("Votre clé : ");
         String configKey = scanner.next();
         
@@ -64,6 +64,7 @@ public class EnigmaClass {
         System.out.print("Entrez le message à chiffrer avec Enigma : ");
         String message = scanner.nextLine();
         System.out.println("Message chiffré avec Enigma : " + enigma.chiffrer(message));
+        return enigma.chiffrer(message);
     }
 
     // Méthode statique pour déchiffrer un message avec l'interface console
