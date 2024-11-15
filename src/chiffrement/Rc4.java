@@ -1,6 +1,7 @@
 package chiffrement;
 
 import java.util.Scanner;
+import java.util.Base64;
 
 public class Rc4 {
 
@@ -62,50 +63,24 @@ public class Rc4 {
         return sortie.toString();
     }
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+    // Méthode utilitaire pour encoder en Base64
+    public String chiffrerEnBase64(String message) {
 
-        // Permet de faire une demande à l'utilisateur de saisir la clé pour RC4
-        System.out.print("Entrez la clé pour RC4 : ");
-        String cle = scanner.nextLine();
-
-        // Permet de faire une demande à l'utilisateur de saisir le message à chiffrer
-        System.out.print("Entrez le message à chiffrer : ");
-        String message = scanner.nextLine();
-
-        // Permet à la création d'une instance RC4 pour chiffrer
-        Rc4 rc4Chiffreur = new Rc4(cle);
-        // Permet au chiffrement du message
-        String messageChiffre = rc4Chiffreur.chiffrer(message);
-
-        // Permet de faire l'affichage du message chiffré en hexadécimal pour une meilleure lisibilité
-        System.out.println("Message chiffré (hex) : " + toHex(messageChiffre));
-
-        // Permet à la création d'une nouvelle instance RC4 pour déchiffrer, pour réinitialiser l'état avec la même clé
-        Rc4 rc4Dechiffreur = new Rc4(cle);
-        // Permet au déchiffrement du message chiffré
-        String messageDechiffre = rc4Dechiffreur.chiffrer(messageChiffre);
-
-        // Permet de faire l'affichage du message déchiffré
-        System.out.println("Message déchiffré : " + messageDechiffre);
-
-        // Permet de faire la vérification si le déchiffrement est correct
-        if (message.equals(messageDechiffre)) {
-            System.out.println("Le message a été déchiffré correctement.");
-        } else {
-            System.out.println("Le déchiffrement a échoué.");
-        }
+        String messageChiffre = chiffrer(message);
+        return Base64.getEncoder().encodeToString(messageChiffre.getBytes());
     }
 
-    // Méthode utilitaire pour convertir un texte en sa représentation hexadécimale
-    private static String toHex(String message) {
-        StringBuilder hex = new StringBuilder();
-        for (char c : message.toCharArray()) {
-            // Permet à la conversion de chaque caractère en hexadécimal
-            hex.append(String.format("%02X", (int) c));
-        }
-        // Permet de retourner la chaîne en hexadécimal
-        return hex.toString();
+    // Méthode utilitaire pour décoder le message chiffré en Base64 avant de le déchiffrer
+    public static String dechiffrerBase64(String messageChiffreBase64, String cle) {
+        // Permet de décoder le message Base64 en un tableau de bytes
+        byte[] messageChiffreBytes = Base64.getDecoder().decode(messageChiffreBase64);
+
+        // Permet de convertir les bytes en une chaîne pour la méthode de déchiffrement RC4
+        String messageChiffre = new String(messageChiffreBytes);
+
+        // Permet de créer une instance de RC4 pour déchiffrer le message
+        Rc4 rc4Dechiffreur = new Rc4(cle);
+        // Permet de déchiffrer le message avec la clé
+        return rc4Dechiffreur.chiffrer(messageChiffre);
     }
 }
-
